@@ -11,7 +11,7 @@ const ONE_YEAR = ONE_DAY * 365;
 export const tokenService = {
   save(accessToken, ctx = null) {
     nookies.set(ctx, ACCESS_TOKEN_KEY, accessToken, {
-      maxAge: ONE_YEAR,
+      maxAge: 12,
       path: '/',
     });
   },

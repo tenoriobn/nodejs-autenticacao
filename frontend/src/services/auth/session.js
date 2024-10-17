@@ -1,5 +1,5 @@
-import React from 'react'
-import { authService } from "./authService";
+import React from 'react';
+import { authService } from './authService';
 import { useRouter } from 'next/router';
 
 export function withSession(funcao) {
@@ -12,9 +12,9 @@ export function withSession(funcao) {
           ...ctx.req,
           session,
         }
-      }
+      };
       return funcao(modifiedCtx);
-    } catch (erro) {
+    } catch(err) {
       return {
         redirect: {
           permanent: false,
@@ -32,19 +32,22 @@ export function useSession() {
 
   React.useEffect(() => {
     authService.getSession()
-    .then((userSession) => {
-      setSession(userSession);
-    })
-    .catch((err) => {
-      setError(err);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+      .then((userSession) => {
+        console.log(userSession);
+        setSession(userSession);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return {
-    data: { session, },
+    data: {
+      session,
+    },
     error,
     loading,
   }
@@ -54,19 +57,18 @@ export function withSessionHOC(Component) {
   return function Wrapper(props) {
     const router = useRouter();
     const session = useSession();
-
-    if (!session.loading && session.error) {
-      console.log('redireciona o usuário para home');
+    
+    if(!session.loading && session.error) {
+      console.log('redireciona o usuário para a home');
       router.push('/?error=401');
     }
 
     const modifiedProps = {
       ...props,
-      sesson: session.data.session,
+      session: session.data.session,
     }
-
     return (
-      <Component { ...modifiedProps } />
+      <Component {...modifiedProps} />
     )
   }
 }
