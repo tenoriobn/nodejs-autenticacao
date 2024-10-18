@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "curso03-nextjs-back": "file:",
     "jsonwebtoken": "^8.5.1",
     "nedb": "^1.8.0",
     "next": "^12.1.0",

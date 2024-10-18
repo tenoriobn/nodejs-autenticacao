@@ -19,7 +19,7 @@ export const tokenService = {
     const cookies = nookies.get(ctx);
     return cookies[ACCESS_TOKEN_KEY] || '';
   },
-  delete() {
+  delete(ctx = null) {
     globalThis?.localStorage?.removeItem(ACCESS_TOKEN_KEY);
     nookies.destroy(ctx, ACCESS_TOKEN_KEY);
   }
